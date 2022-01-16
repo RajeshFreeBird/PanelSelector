@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Selector</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color: wheat !important">
+        <div class="container-fluid">
+            <div class="navbar-header col-sm-2">
+                <a class="" href="~/Home/Index"><img src="~/Content/Images/Panles.jpg"/></a>
+            </div>
+            <div class="col-sm-7">
+            </div>
+            <ul class="nav navbar-nav col-sm-3">
+                @{
+                    if (!string.IsNullOrEmpty(Session[$"UserId"]?.ToString()))
+                    {
+                        if ((bool) Session["IsAdmin"])
+                        {
+                            <li>
+                                @Html.ActionLink("Users", "UsersList", "Home", "", "")
+                            </li>
+                        }
+                        <li><a href="#"> @Session["Name"]</a> </li>
+                        <li>
+                            @Html.ActionLink("Logout", "Logout", "Login", "", "")
+                        </li>
+                     
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Panel Selector</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
